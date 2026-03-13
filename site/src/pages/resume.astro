@@ -4,7 +4,7 @@ import Layout from '../layouts/Layout.astro';
 const skills = {
   'Cloud & Infrastructure': ['AWS', 'S3', 'CloudFront', 'Route 53', 'IAM', 'WAF', 'ACM', 'Terraform'],
   'DevOps & Automation': ['GitHub Actions', 'CI/CD', 'Git', 'Bash', 'Linux'],
-  'IT & Security': ['Service Desk', 'IAM', 'Active Directory', 'MDM', 'AirWatch', 'ITIL v4', 'SOP Development'],
+  'IT & Security': ['Endpoint Management', 'IAM', 'Active Directory', 'MDM', 'AirWatch', 'Disaster Recovery', 'Federal Compliance', 'ITIL v4'],
   'Web Technologies': ['Astro', 'HTML', 'CSS', 'JavaScript', 'Markdown'],
 };
 
@@ -21,11 +21,20 @@ const certs = [
 
     <p class="font-mono text-cyan-400 text-sm mb-2">$ cat resume.json</p>
     <h1 class="text-4xl font-bold text-slate-100 mb-2">Jerome Aaron</h1>
-    <p class="text-slate-400 mb-10">
+    <p class="text-slate-400 mb-6">
       Washington, DC ·
       <a href="https://github.com/JeromeAaron" target="_blank" rel="noopener noreferrer" class="text-cyan-400 hover:underline">GitHub</a>
       ·
       <a href="https://www.linkedin.com/in/jerome-aaron/" target="_blank" rel="noopener noreferrer" class="text-cyan-400 hover:underline">LinkedIn</a>
+    </p>
+
+    <!-- Summary -->
+    <p class="text-slate-300 leading-relaxed mb-10 max-w-2xl">
+      Federal IT Specialist transitioning to cloud engineering. AWS Certified Solutions Architect Associate
+      with hands-on experience building production infrastructure using Terraform, CloudFront, and GitHub
+      Actions CI/CD. Security-first background developed through federal government operations and
+      compliance-driven environments. Currently completing a B.S. in Cloud Computing at Western Governors
+      University (Dec 2026).
     </p>
 
     <!-- Skills -->
@@ -116,7 +125,7 @@ const certs = [
           <h3 class="text-slate-100 font-semibold">Personal Portfolio & Blog</h3>
           <a href="https://github.com/JeromeAaron/cloud-portfolio" target="_blank" rel="noopener noreferrer" class="font-mono text-xs text-cyan-400 hover:underline ml-4 shrink-0">GitHub ↗</a>
         </div>
-        <p class="text-slate-300 text-sm mb-4">Static site built with Astro, deployed on AWS using S3, CloudFront, Route 53, ACM, and WAF. Infrastructure managed with Terraform and automated via GitHub Actions CI/CD pipeline.</p>
+        <p class="text-slate-300 text-sm mb-4">Static site built with Astro, deployed on AWS using S3, CloudFront, Route 53, ACM, and WAF. Infrastructure managed with Terraform and automated via GitHub Actions CI/CD pipeline with accessibility, link, and type-checking tests.</p>
         <div class="flex flex-wrap gap-2">
           {['Astro', 'AWS S3', 'CloudFront', 'Route 53', 'IAM', 'WAF', 'ACM', 'Terraform', 'GitHub Actions'].map(tag => (
             <span class="bg-slate-800 text-slate-300 text-xs px-2.5 py-1 rounded font-mono">{tag}</span>
@@ -125,5 +134,19 @@ const certs = [
       </div>
     </section>
 
-</div>
+    <!-- Education -->
+    <section class="mb-12">
+      <h2 class="font-mono text-cyan-400 text-sm mb-4">// education</h2>
+      <div class="bg-slate-900 border border-slate-800 rounded-lg p-6">
+        <div class="flex items-start justify-between">
+          <div>
+            <h3 class="text-slate-100 font-semibold">B.S. Cloud Computing</h3>
+            <p class="text-slate-400 text-sm mt-0.5">Western Governors University</p>
+          </div>
+          <span class="font-mono text-xs text-slate-500 bg-slate-800 px-2 py-1 rounded whitespace-nowrap ml-4">Expected Dec 2026</span>
+        </div>
+      </div>
+    </section>
+
+  </div>
 </Layout>
