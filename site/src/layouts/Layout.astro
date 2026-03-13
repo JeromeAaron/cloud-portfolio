@@ -6,20 +6,85 @@ import Footer from '../components/Footer.astro';
 interface Props {
   title: string;
   description?: string;
+  ogType?: 'website' | 'article';
 }
 
-const { title, description = 'Jerome Aaron — Cloud Engineer' } = Astro.props;
+const {
+  title,
+  description = 'Jerome Aaron — IT Specialist and Cloud Engineer in the Washington DC Metro area. AWS Certified Solutions Architect, Terraform, CI/CD.',
+  ogType = 'website',
+} = Astro.props;
+
+const siteUrl = 'https://jeromeaaron.com';
+const canonicalUrl = new URL(Astro.url.pathname, siteUrl).href;
+const fullTitle = `${title} | Jerome Aaron`;
+
+const personSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Jerome Aaron',
+  jobTitle: 'IT Specialist & Cloud Engineer',
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Washington',
+    addressRegion: 'DC',
+    addressCountry: 'US',
+  },
+  url: siteUrl,
+  sameAs: [
+    'https://www.linkedin.com/in/jerome-aaron/',
+    'https://github.com/JeromeAaron',
+  ],
+  knowsAbout: [
+    'AWS', 'Cloud Engineering', 'Terraform', 'Infrastructure as Code',
+    'CI/CD', 'GitHub Actions', 'IT Support', 'Federal IT', 'Cloud Computing',
+  ],
+  hasCredential: [
+    { '@type': 'EducationalOccupationalCredential', name: 'AWS Certified Solutions Architect – Associate' },
+    { '@type': 'EducationalOccupationalCredential', name: 'CompTIA Security+' },
+    { '@type': 'EducationalOccupationalCredential', name: 'CompTIA A+' },
+    { '@type': 'EducationalOccupationalCredential', name: 'ITIL® Foundations v4' },
+  ],
+};
 ---
 
 <!doctype html>
 <html lang="en" class="bg-slate-950 text-slate-100">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="generator" content={Astro.generator} />
+
+    <!-- Primary SEO -->
+    <title>{fullTitle}</title>
     <meta name="description" content={description} />
-    <title>{title} | Jerome Aaron</title>
+    <meta name="author" content="Jerome Aaron" />
+    <meta name="keywords" content="Jerome Aaron, Cloud Engineer, IT Specialist, Washington DC, AWS, Terraform, Cloud Computing, DevOps, Federal IT" />
+    <link rel="canonical" href={canonicalUrl} />
+
+    <!-- Geo targeting (DC Metro) -->
+    <meta name="geo.region" content="US-DC" />
+    <meta name="geo.placename" content="Washington, DC" />
+
+    <!-- Open Graph (Facebook, LinkedIn previews) -->
+    <meta property="og:type" content={ogType} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:site_name" content="Jerome Aaron" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+
+    <!-- JSON-LD Structured Data — tells Google who Jerome Aaron is -->
+    <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link

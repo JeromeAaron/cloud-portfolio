@@ -3,8 +3,22 @@ const year = new Date().getFullYear();
 ---
 
 <footer class="border-t border-slate-800 mt-12">
-  <div class="max-w-4xl mx-auto px-4 py-6 flex items-center justify-between text-sm text-slate-500">
-    <span>© {year} Jerome Aaron</span>
+  <div class="max-w-4xl mx-auto px-4 py-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-sm text-slate-500">
+    <div class="flex items-center gap-4">
+      <span>© {year} Jerome Aaron</span>
+      <a
+        href="https://www.linkedin.com/in/jerome-aaron/"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="text-cyan-400 hover:text-cyan-300"
+      >LinkedIn</a>
+      <a
+        href="https://github.com/JeromeAaron"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="text-cyan-400 hover:text-cyan-300"
+      >GitHub</a>
+    </div>
     <span class="font-mono text-xs">
       Built with <a href="https://astro.build" class="text-cyan-400 hover:text-cyan-300">Astro</a>
       · Deployed on <a href="https://aws.amazon.com" class="text-cyan-400 hover:text-cyan-300">AWS</a>

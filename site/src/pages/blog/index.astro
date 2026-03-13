@@ -7,7 +7,10 @@ const posts = (await getCollection('blog')).sort(
 );
 ---
 
-<Layout title="Blog">
+<Layout
+  title="Blog"
+  description="Jerome Aaron's blog — notes on cloud engineering, AWS, Terraform, infrastructure as code, and transitioning from federal IT to cloud DevOps."
+>
   <div class="py-8">
 
     <p class="font-mono text-cyan-400 text-sm mb-2">$ ls blog/</p>
