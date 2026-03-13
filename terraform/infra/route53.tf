@@ -36,6 +36,15 @@ resource "aws_route53_record" "apex_ipv6" {
   }
 }
 
+# Google Search Console domain verification
+resource "aws_route53_record" "google_site_verification" {
+  zone_id = aws_route53_zone.website.zone_id
+  name    = var.domain_name
+  type    = "TXT"
+  ttl     = 300
+  records = ["google-site-verification=brfaFyqLv95VPtPIUOcTpQ7InN23GAghfzSsL_WY1yM"]
+}
+
 # www subdomain → same CloudFront distribution
 resource "aws_route53_record" "www" {
   zone_id = aws_route53_zone.website.zone_id

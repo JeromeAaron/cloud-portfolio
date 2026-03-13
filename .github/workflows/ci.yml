@@ -57,7 +57,7 @@ jobs:
       - name: Check links
         run: >
           npx linkinator http://localhost:4321 --recurse
-          --skip "linkedin\.com|github\.com|fonts\.googleapis\.com|fonts\.gstatic\.com|aws\.amazon\.com|astro\.build"
+          --skip "linkedin\.com|github\.com|fonts\.googleapis\.com|fonts\.gstatic\.com|aws\.amazon\.com|astro\.build|jeromeaaron\.com"
           --verbosity error
 
       # Sync ChromeDriver to match the Chrome version on the runner.
