@@ -60,6 +60,12 @@ jobs:
           --skip "linkedin\.com|github\.com|fonts\.googleapis\.com|fonts\.gstatic\.com|aws\.amazon\.com|astro\.build"
           --verbosity error
 
+      # Sync ChromeDriver to match the Chrome version on the runner.
+      # GitHub's ubuntu-latest updates Chrome independently of ChromeDriver,
+      # causing version mismatches. This ensures they stay in sync.
+      - name: Sync ChromeDriver
+        run: npx browser-driver-manager install chrome
+
       # Accessibility audit using axe-core — checks WCAG compliance on each page.
       # Failing accessibility is a real barrier to users and a red flag to employers.
       - name: Accessibility check
