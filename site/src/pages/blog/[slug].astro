@@ -1,0 +1,46 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map(post => ({
+    params: { slug: post.id.replace(/\.md$/, '') },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+
+<Layout title={post.data.title} description={post.data.description}>
+  <article class="py-8">
+
+    <div class="mb-8">
+      <a href="/blog" class="font-mono text-sm text-slate-500 hover:text-cyan-400 transition-colors">
+        ← back to blog
+      </a>
+    </div>
+
+    <header class="mb-10">
+      <p class="font-mono text-cyan-400 text-xs mb-3">
+        {post.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+      </p>
+      <h1 class="text-4xl font-bold text-slate-100 mb-3">{post.data.title}</h1>
+      <p class="text-slate-400 text-lg">{post.data.description}</p>
+      {post.data.tags && (
+        <div class="flex gap-2 mt-4 flex-wrap">
+          {post.data.tags.map((tag: string) => (
+            <span class="font-mono text-xs text-slate-500 bg-slate-800 px-2.5 py-1 rounded">{tag}</span>
+          ))}
+        </div>
+      )}
+    </header>
+
+    <div class="prose prose-invert prose-cyan max-w-none">
+      <Content />
+    </div>
+
+  </article>
+</Layout>

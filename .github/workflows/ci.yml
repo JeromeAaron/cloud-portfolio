@@ -1,0 +1,71 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+  # Allows deploy.yml to call this workflow as a dependency
+  workflow_call:
+
+# Explicit minimal permissions — CI only reads code, never writes or deploys
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Build & Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        # Pinned to commit SHA — version tags can be moved, SHAs cannot
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4.1.0
+        with:
+          node-version: '22'
+          cache: 'npm'
+          cache-dependency-path: site/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+        working-directory: site
+
+      # astro check validates TypeScript types across all .astro components.
+      # Catches type errors before they reach production.
+      - name: Type check
+        run: npx astro check
+        working-directory: site
+
+      # Build the static site — this also validates content collection schemas.
+      # If a blog post is missing a required field (title, date, etc.) it fails here.
+      - name: Build site
+        run: npm run build
+        working-directory: site
+
+      # Start a local preview server in the background so we can test against it.
+      # The '&' puts it in the background; sleep gives it time to start.
+      - name: Start preview server
+        run: npx astro preview --port 4321 &
+        working-directory: site
+
+      - name: Wait for server to start
+        run: sleep 3
+
+      # Link checker — verifies all internal links in the built site resolve.
+      # Skip external domains (GitHub, LinkedIn, Google Fonts) to avoid rate limits.
+      - name: Check links
+        run: >
+          npx linkinator http://localhost:4321 --recurse
+          --skip "linkedin\.com|github\.com|fonts\.googleapis\.com|fonts\.gstatic\.com|aws\.amazon\.com|astro\.build"
+          --verbosity error
+
+      # Accessibility audit using axe-core — checks WCAG compliance on each page.
+      # Failing accessibility is a real barrier to users and a red flag to employers.
+      - name: Accessibility check
+        run: >
+          npx @axe-core/cli
+          http://localhost:4321
+          http://localhost:4321/resume
+          http://localhost:4321/blog
+          http://localhost:4321/blog/building-cloud-portfolio

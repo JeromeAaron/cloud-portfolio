@@ -1,0 +1,14 @@
+# Local Terraform state — never commit this, it can contain secrets
+*.tfstate
+*.tfstate.backup
+
+# Terraform working directory — created by terraform init
+.terraform/
+.terraform.lock.hcl
+
+# Variable files that may contain secrets
+*.tfvars
+!example.tfvars
+
+# Crash log
+crash.log

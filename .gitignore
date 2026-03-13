@@ -1,0 +1,19 @@
+# Node
+node_modules/
+site/dist/
+
+# Terraform
+**/.terraform/
+**/*.tfstate
+**/*.tfstate.backup
+**/*.tfvars
+!**/example.tfvars
+
+# Environment files — never commit secrets
+.env
+.env.*
+!.env.example
+
+# OS
+.DS_Store
+Thumbs.db

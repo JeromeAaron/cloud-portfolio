@@ -1,0 +1,66 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Home">
+  <div class="py-20">
+
+    <!-- Hero -->
+    <div class="mb-12">
+      <p class="font-mono text-cyan-400 text-sm mb-3">$ whoami</p>
+      <h1 class="text-5xl font-bold text-slate-100 mb-4">Jerome Aaron</h1>
+      <p class="text-xl text-slate-400 mb-6">
+        IT Specialist → Cloud Engineer · AWS · Terraform · CI/CD
+      </p>
+      <p class="text-slate-300 max-w-2xl leading-relaxed">
+        Federal IT professional transitioning to cloud engineering. I build infrastructure
+        as code, automate deployments, and architect scalable systems on AWS.
+        AWS Solutions Architect Associate certified.
+      </p>
+    </div>
+
+    <!-- CTA buttons -->
+    <div class="flex gap-4 flex-wrap mb-20">
+      <a
+        href="/resume"
+        class="px-5 py-2.5 bg-cyan-400 text-slate-950 font-semibold rounded hover:bg-cyan-300 transition-colors text-sm"
+      >
+        View Resume
+      </a>
+      <a
+        href="/blog"
+        class="px-5 py-2.5 border border-slate-700 text-slate-300 rounded hover:border-slate-500 hover:text-slate-100 transition-colors text-sm"
+      >
+        Read Blog
+      </a>
+      <a
+        href="https://github.com/JeromeAaron"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="px-5 py-2.5 border border-slate-700 text-slate-300 rounded hover:border-slate-500 hover:text-slate-100 transition-colors text-sm"
+      >
+        GitHub ↗
+      </a>
+    </div>
+
+    <!-- Highlight cards -->
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+      <div class="bg-slate-900 border border-slate-800 rounded-lg p-6">
+        <p class="font-mono text-cyan-400 text-xs mb-2">certifications</p>
+        <p class="text-2xl font-bold text-slate-100 mb-1">4</p>
+        <p class="text-slate-400 text-sm">A+, Security+, ITIL v4, AWS SAA</p>
+      </div>
+      <div class="bg-slate-900 border border-slate-800 rounded-lg p-6">
+        <p class="font-mono text-cyan-400 text-xs mb-2">cloud provider</p>
+        <p class="text-2xl font-bold text-slate-100 mb-1">AWS</p>
+        <p class="text-slate-400 text-sm">S3, CloudFront, Route 53, IAM, WAF</p>
+      </div>
+      <div class="bg-slate-900 border border-slate-800 rounded-lg p-6">
+        <p class="font-mono text-cyan-400 text-xs mb-2">infrastructure</p>
+        <p class="text-2xl font-bold text-slate-100 mb-1">IaC</p>
+        <p class="text-slate-400 text-sm">Terraform · GitHub Actions</p>
+      </div>
+    </div>
+
+  </div>
+</Layout>
