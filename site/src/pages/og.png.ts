@@ -20,86 +20,36 @@ export const GET: APIRoute = async () => {
         backgroundColor: '#020617',
         display: 'flex',
         flexDirection: 'column',
+        alignItems: 'center',
         justifyContent: 'center',
-        padding: '80px 80px 80px 88px',
         fontFamily: 'JetBrains Mono',
-        borderLeft: '8px solid #22d3ee',
-        boxSizing: 'border-box',
       },
       children: [
-        // $ whoami
+        // Name
         {
           type: 'p',
           props: {
             style: {
-              color: '#22d3ee',
-              fontSize: '22px',
-              margin: '0 0 20px 0',
-              fontWeight: 400,
-            },
-            children: '$ whoami',
-          },
-        },
-        // Name
-        {
-          type: 'h1',
-          props: {
-            style: {
               color: '#f1f5f9',
-              fontSize: '80px',
+              fontSize: '96px',
               fontWeight: 700,
-              margin: '0 0 24px 0',
-              lineHeight: 1.1,
+              margin: '0 0 28px 0',
+              lineHeight: 1,
             },
             children: 'Jerome Aaron',
           },
         },
-        // Tagline
-        {
-          type: 'p',
-          props: {
-            style: {
-              color: '#94a3b8',
-              fontSize: '30px',
-              fontWeight: 400,
-              margin: '0 0 52px 0',
-            },
-            children: 'Cloud Engineer · IT Specialist · Washington DC',
-          },
-        },
-        // Tech tags row
-        {
-          type: 'div',
-          props: {
-            style: { display: 'flex', gap: '14px' },
-            children: ['AWS', 'Terraform', 'GitHub Actions', 'AWS SAA'].map((tag) => ({
-              type: 'span',
-              props: {
-                style: {
-                  backgroundColor: '#0f172a',
-                  border: '1px solid #1e293b',
-                  color: '#64748b',
-                  fontSize: '20px',
-                  padding: '8px 18px',
-                  borderRadius: '6px',
-                  fontWeight: 400,
-                },
-                children: tag,
-              },
-            })),
-          },
-        },
-        // Site URL (bottom)
+        // Title
         {
           type: 'p',
           props: {
             style: {
               color: '#22d3ee',
-              fontSize: '20px',
+              fontSize: '40px',
               fontWeight: 400,
-              margin: '48px 0 0 0',
+              margin: '0',
             },
-            children: 'jeromeaaron.com',
+            children: 'Cloud Engineer',
           },
         },
       ],
