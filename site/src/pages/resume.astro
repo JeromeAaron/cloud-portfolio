@@ -4,15 +4,15 @@ import Layout from '../layouts/Layout.astro';
 const skills = {
   'Cloud & Infrastructure': ['AWS', 'S3', 'CloudFront', 'Route 53', 'IAM', 'WAF', 'ACM', 'Terraform'],
   'DevOps & Automation': ['GitHub Actions', 'CI/CD', 'Git', 'Bash', 'Linux'],
-  'IT & Security': ['Network Administration', 'Security+', 'ITIL v4', 'Active Directory'],
+  'IT & Security': ['Service Desk', 'IAM', 'Active Directory', 'MDM', 'AirWatch', 'ITIL v4', 'SOP Development'],
   'Web Technologies': ['Astro', 'HTML', 'CSS', 'JavaScript', 'Markdown'],
 };
 
 const certs = [
   { name: 'AWS Certified Solutions Architect – Associate', issuer: 'Amazon Web Services', badge: 'SAA-C03' },
   { name: 'CompTIA Security+', issuer: 'CompTIA', badge: 'SY0-701' },
-  { name: 'ITIL® Foundations v4', issuer: 'PeopleCert', badge: 'ITIL4' },
   { name: 'CompTIA A+', issuer: 'CompTIA', badge: '220-1101/02' },
+  { name: 'ITIL® Foundations v4', issuer: 'PeopleCert', badge: 'ITIL4' },
 ];
 ---
 
@@ -22,7 +22,7 @@ const certs = [
     <p class="font-mono text-cyan-400 text-sm mb-2">$ cat resume.json</p>
     <h1 class="text-4xl font-bold text-slate-100 mb-2">Jerome Aaron</h1>
     <p class="text-slate-400 mb-10">
-      Washington DC Metro Area ·
+      Washington, DC ·
       <a href="https://github.com/JeromeAaron" target="_blank" rel="noopener noreferrer" class="text-cyan-400 hover:underline">GitHub</a>
       ·
       <a href="https://linkedin.com/in/jeromeaaron" target="_blank" rel="noopener noreferrer" class="text-cyan-400 hover:underline">LinkedIn</a>
@@ -66,29 +66,64 @@ const certs = [
     <!-- Experience -->
     <section class="mb-12">
       <h2 class="font-mono text-cyan-400 text-sm mb-4">// experience</h2>
-      <div class="bg-slate-900 border border-slate-800 rounded-lg p-6">
-        <div class="flex items-start justify-between mb-4">
-          <div>
-            <h3 class="text-slate-100 font-semibold">IT Specialist</h3>
-            <p class="text-slate-400 text-sm mt-0.5">U.S. Small Business Administration · Washington DC Metro</p>
+      <div class="space-y-6">
+
+        <div class="bg-slate-900 border border-slate-800 rounded-lg p-6">
+          <div class="flex items-start justify-between mb-4">
+            <div>
+              <h3 class="text-slate-100 font-semibold">IT Specialist</h3>
+              <p class="text-slate-400 text-sm mt-0.5">U.S. Small Business Administration · Washington, DC</p>
+            </div>
+            <span class="font-mono text-xs text-slate-500 bg-slate-800 px-2 py-1 rounded whitespace-nowrap ml-4">Nov 2024 – Present</span>
           </div>
-          <span class="font-mono text-xs text-slate-500 bg-slate-800 px-2 py-1 rounded">GS-11</span>
+          <ul class="space-y-2 text-slate-300 text-sm">
+            <li class="flex gap-2"><span class="text-cyan-400 shrink-0">▸</span> Spearhead IT support for federally declared disaster response operations, ensuring reliable technology services for field staff across multiple sites</li>
+            <li class="flex gap-2"><span class="text-cyan-400 shrink-0">▸</span> Provide Tier 2/3 technical support for Disaster Recovery Centers, managing IT readiness and resolving connectivity issues in challenging field environments</li>
+            <li class="flex gap-2"><span class="text-cyan-400 shrink-0">▸</span> Stabilize IT service delivery during rapid operational cycles, maintaining uptime for critical disaster relief systems</li>
+            <li class="flex gap-2"><span class="text-cyan-400 shrink-0">▸</span> Administer Identity and Access Management (IAM) protocols for user provisioning and access control across agency systems</li>
+            <li class="flex gap-2"><span class="text-cyan-400 shrink-0">▸</span> Develop and maintain system documentation, SOPs, and knowledge base articles for standardized incident response and configuration management</li>
+            <li class="flex gap-2"><span class="text-cyan-400 shrink-0">▸</span> Evaluate IT systems and services for effectiveness, recommending modern approaches aligned with industry best practices</li>
+          </ul>
         </div>
-        <ul class="space-y-2 text-slate-300 text-sm">
-          <li class="flex gap-2"><span class="text-cyan-400 shrink-0">▸</span> Add your key responsibilities here</li>
-          <li class="flex gap-2"><span class="text-cyan-400 shrink-0">▸</span> Add your key responsibilities here</li>
-          <li class="flex gap-2"><span class="text-cyan-400 shrink-0">▸</span> Add your key responsibilities here</li>
-        </ul>
+
+        <div class="bg-slate-900 border border-slate-800 rounded-lg p-6">
+          <div class="flex items-start justify-between mb-4">
+            <div>
+              <h3 class="text-slate-100 font-semibold">Service Desk Technician</h3>
+              <p class="text-slate-400 text-sm mt-0.5">Iron Bow Technologies · Remote</p>
+            </div>
+            <span class="font-mono text-xs text-slate-500 bg-slate-800 px-2 py-1 rounded whitespace-nowrap ml-4">Sep 2021 – Dec 2024</span>
+          </div>
+          <ul class="space-y-2 text-slate-300 text-sm">
+            <li class="flex gap-2"><span class="text-cyan-400 shrink-0">▸</span> Delivered Tier 1/2 support for Department of Veterans Affairs Telehealth users via phone, email, and ticketing systems</li>
+            <li class="flex gap-2"><span class="text-cyan-400 shrink-0">▸</span> Consistently exceeded SLAs with a ticket-to-call ratio surpassing 100%, closing an average of 20 tickets per day</li>
+            <li class="flex gap-2"><span class="text-cyan-400 shrink-0">▸</span> Maintained a 99%+ customer satisfaction rating across all support interactions</li>
+            <li class="flex gap-2"><span class="text-cyan-400 shrink-0">▸</span> Collaborated with cross-functional teams including network services, software engineering, and vendors to restore services, identify root causes, and implement solutions</li>
+            <li class="flex gap-2"><span class="text-cyan-400 shrink-0">▸</span> Managed mobile device fleet using AirWatch WorkspaceOne UEM, enforcing security policies and organizational compliance</li>
+            <li class="flex gap-2"><span class="text-cyan-400 shrink-0">▸</span> Administered IAM protocols, facilitating access to critical business services while ensuring data security and regulatory compliance</li>
+            <li class="flex gap-2"><span class="text-cyan-400 shrink-0">▸</span> Coordinated asset lifecycle management including receipt, distribution, shipment, and disposition tracking</li>
+          </ul>
+        </div>
+
       </div>
     </section>
 
-    <!-- Education -->
+    <!-- Projects -->
     <section class="mb-12">
-      <h2 class="font-mono text-cyan-400 text-sm mb-4">// education</h2>
+      <h2 class="font-mono text-cyan-400 text-sm mb-4">// projects</h2>
       <div class="bg-slate-900 border border-slate-800 rounded-lg p-6">
-        <p class="text-slate-500 text-sm font-mono">// add your education here</p>
+        <div class="flex items-start justify-between mb-3">
+          <h3 class="text-slate-100 font-semibold">Personal Portfolio & Blog</h3>
+          <a href="https://github.com/JeromeAaron/cloud-portfolio" target="_blank" rel="noopener noreferrer" class="font-mono text-xs text-cyan-400 hover:underline ml-4 shrink-0">GitHub ↗</a>
+        </div>
+        <p class="text-slate-300 text-sm mb-4">Static site built with Astro, deployed on AWS using S3, CloudFront, Route 53, ACM, and WAF. Infrastructure managed with Terraform and automated via GitHub Actions CI/CD pipeline.</p>
+        <div class="flex flex-wrap gap-2">
+          {['Astro', 'AWS S3', 'CloudFront', 'Route 53', 'IAM', 'WAF', 'ACM', 'Terraform', 'GitHub Actions'].map(tag => (
+            <span class="bg-slate-800 text-slate-300 text-xs px-2.5 py-1 rounded font-mono">{tag}</span>
+          ))}
+        </div>
       </div>
     </section>
 
-  </div>
+</div>
 </Layout>
