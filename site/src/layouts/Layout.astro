@@ -87,8 +87,8 @@ const personSchema = {
     <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
 
     <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FNR14ZBW1X"></script>
-    <script>
+    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-FNR14ZBW1X"></script>
+    <script is:inline>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
