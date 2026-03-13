@@ -40,6 +40,24 @@ resource "aws_cloudfront_function" "url_rewrite" {
 resource "aws_cloudfront_response_headers_policy" "security" {
   name = "portfolio-security-headers"
 
+  # Remove headers that reveal backend implementation details
+  remove_headers_config {
+    items {
+      header = "x-amz-server-side-encryption"
+    }
+    items {
+      header = "x-amz-request-id"
+    }
+    items {
+      header = "x-amz-id-2"
+    }
+  }
+
+  server_timing_headers_config {
+    enabled       = false
+    sampling_rate = 0
+  }
+
   security_headers_config {
     # Prevent browsers from MIME-sniffing responses away from the declared content-type
     content_type_options {
