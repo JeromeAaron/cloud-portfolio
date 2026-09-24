@@ -11,7 +11,7 @@ interface Props {
 
 const {
   title,
-  description = 'Jerome Aaron — IT Specialist and Cloud Engineer in the Washington DC Metro area. AWS Certified Solutions Architect, Terraform, CI/CD.',
+  description = 'Jerome Aaron is a federal IT specialist and AWS Certified Solutions Architect in the Washington, DC area, building cloud infrastructure with AWS, Terraform and GitHub Actions.',
   ogType = 'website',
 } = Astro.props;
 
@@ -37,7 +37,7 @@ const personSchema = {
   ],
   knowsAbout: [
     'AWS', 'Cloud Engineering', 'Terraform', 'Infrastructure as Code',
-    'CI/CD', 'GitHub Actions', 'IT Support', 'Federal IT', 'Cloud Computing',
+    'CI/CD', 'GitHub Actions', 'Docker', 'Ansible', 'Linux', 'IT Support', 'Federal IT',
   ],
   hasCredential: [
     { '@type': 'EducationalOccupationalCredential', name: 'AWS Certified Solutions Architect – Associate' },
@@ -49,16 +49,27 @@ const personSchema = {
 ---
 
 <!doctype html>
-<html lang="en" class="bg-slate-950 text-slate-100">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Apply a saved theme before first paint so the page never flashes. Dark is the default. -->
+    <script is:inline>
+      (function () {
+        try {
+          var t = localStorage.getItem('theme');
+          if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
+        } catch (e) {}
+      })();
+    </script>
 
     <!-- Primary SEO -->
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
     <meta name="author" content="Jerome Aaron" />
     <meta name="keywords" content="Jerome Aaron, Cloud Engineer, IT Specialist, Washington DC, AWS, Terraform, Cloud Computing, DevOps, Federal IT" />
+    <meta name="theme-color" content="#0B0E13" />
     <link rel="canonical" href={canonicalUrl} />
 
     <!-- Geo targeting (DC Metro) -->
@@ -75,7 +86,7 @@ const personSchema = {
     <meta property="og:image" content={`${siteUrl}/og.png`} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Jerome Aaron — Cloud Engineer & IT Specialist in Washington DC" />
+    <meta property="og:image:alt" content="Jerome Aaron, federal IT specialist and cloud engineer" />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
@@ -83,7 +94,7 @@ const personSchema = {
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={`${siteUrl}/og.png`} />
 
-    <!-- JSON-LD Structured Data — tells Google who Jerome Aaron is -->
+    <!-- JSON-LD Structured Data: tells Google who Jerome Aaron is -->
     <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
 
     <!-- Google Analytics -->
@@ -98,17 +109,18 @@ const personSchema = {
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
-    <!-- Fonts -->
+    <!-- Fonts: Geist and Geist Mono (Google Fonts is allowed by the CSP) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@400..700&family=Geist+Mono:wght@400..500&display=swap"
       rel="stylesheet"
     />
   </head>
-  <body class="min-h-screen flex flex-col">
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
     <Nav />
-    <main class="flex-1 max-w-4xl mx-auto w-full px-4 py-12">
+    <main id="main" class="container">
       <slot />
     </main>
     <Footer />

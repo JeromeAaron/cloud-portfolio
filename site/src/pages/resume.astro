@@ -1,155 +1,114 @@
 ---
 import Layout from '../layouts/Layout.astro';
-
-const skills = {
-  'Cloud & Infrastructure': ['AWS', 'S3', 'CloudFront', 'Route 53', 'IAM', 'WAF', 'ACM', 'Terraform'],
-  'DevOps & Automation': ['GitHub Actions', 'CI/CD', 'Git', 'Bash', 'Linux'],
-  'IT & Security': ['Endpoint Management', 'IAM', 'Active Directory', 'MDM', 'AirWatch', 'Disaster Recovery', 'Federal Compliance', 'ITIL v4'],
-  'Web Technologies': ['Astro', 'HTML', 'CSS', 'JavaScript', 'Markdown'],
-};
-
-const certs = [
-  { name: 'AWS Certified Solutions Architect – Associate', issuer: 'Amazon Web Services', badge: 'SAA-C03' },
-  { name: 'CompTIA Security+', issuer: 'CompTIA', badge: 'SY0-701' },
-  { name: 'CompTIA A+', issuer: 'CompTIA', badge: '220-1101/02' },
-  { name: 'ITIL® Foundations v4', issuer: 'PeopleCert', badge: 'ITIL4' },
-];
+import { profile, certifications, experience, education, skills, projects } from '../data/profile';
 ---
 
 <Layout
   title="Resume"
-  description="Resume of Jerome Aaron — IT Specialist and Cloud Engineer in Washington DC. AWS Certified Solutions Architect Associate, CompTIA Security+, A+, ITIL v4. Federal IT background with Terraform and GitHub Actions experience."
+  description="Resume of Jerome Aaron: federal IT specialist and AWS Certified Solutions Architect in Washington, DC, with CompTIA Security+, A+ and ITIL 4, building infrastructure with Terraform and GitHub Actions."
 >
-  <div class="py-8">
-
-    <p class="font-mono text-cyan-400 text-sm mb-2">$ cat resume.json</p>
-    <h1 class="text-4xl font-bold text-slate-100 mb-2">Jerome Aaron</h1>
-    <p class="text-slate-400 mb-6">
-      Washington, DC ·
-      <a href="https://github.com/JeromeAaron" target="_blank" rel="noopener noreferrer" class="text-cyan-400 hover:underline">GitHub</a>
-      ·
-      <a href="https://www.linkedin.com/in/jerome-aaron/" target="_blank" rel="noopener noreferrer" class="text-cyan-400 hover:underline">LinkedIn</a>
+  <section class="tile page-head" aria-labelledby="resume-title">
+    <p class="eyebrow no-print">Resume</p>
+    <h1 id="resume-title">Jerome Aaron</h1>
+    <div class="meta-row">
+      <span>{profile.role}</span>
+      <span>{profile.location}</span>
+      <a href={profile.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a href={profile.github} target="_blank" rel="noopener noreferrer">GitHub</a>
+      <span class="print-only">jeromeaaron.com</span>
+    </div>
+    <p class="lede">
+      Federal IT specialist moving into cloud engineering. AWS Certified Solutions Architect – Associate
+      with hands-on experience building production infrastructure using Terraform, CloudFront and
+      GitHub Actions CI/CD. Security-first background from federal operations and compliance-driven
+      environments. Outside work I run a self-hosted homelab and a local AI lab, both documented on
+      this site. Completing a B.S. in Cloud Computing at Western Governors University (Dec 2026).
     </p>
+    <div class="actions no-print">
+      <button class="btn btn-primary" type="button" data-print>Print or save as PDF</button>
+      <a class="btn" href={profile.linkedin} target="_blank" rel="noopener noreferrer">Message me on LinkedIn ↗</a>
+    </div>
+  </section>
 
-    <!-- Summary -->
-    <p class="text-slate-300 leading-relaxed mb-10 max-w-2xl">
-      Federal IT Specialist transitioning to cloud engineering. AWS Certified Solutions Architect Associate
-      with hands-on experience building production infrastructure using Terraform, CloudFront, and GitHub
-      Actions CI/CD. Security-first background developed through federal government operations and
-      compliance-driven environments. Currently completing a B.S. in Cloud Computing at Western Governors
-      University (Dec 2026).
-    </p>
-
-    <!-- Skills -->
-    <section class="mb-12">
-      <h2 class="font-mono text-cyan-400 text-sm mb-4">// skills</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        {Object.entries(skills).map(([category, items]) => (
-          <div class="bg-slate-900 border border-slate-800 rounded-lg p-5">
-            <h3 class="text-slate-100 font-semibold mb-3 text-sm">{category}</h3>
-            <div class="flex flex-wrap gap-2">
-              {items.map(skill => (
-                <span class="bg-slate-800 text-slate-300 text-xs px-2.5 py-1 rounded font-mono">{skill}</span>
-              ))}
+  <div class="resume-grid">
+    <div class="resume-main">
+      <section class="tile" aria-labelledby="experience-title">
+        <h2 class="tile-label" id="experience-title">Experience</h2>
+        {experience.map((job) => (
+          <article class="job">
+            <div class="job-top">
+              <div>
+                <h3 class="job-role">{job.role}</h3>
+                <p class="job-org">{job.org} · {job.place}</p>
+              </div>
+              <span class="job-dates">{job.dates}</span>
             </div>
-          </div>
+            <ul class="bullets">
+              {job.bullets.map((bullet) => <li>{bullet}</li>)}
+            </ul>
+          </article>
         ))}
-      </div>
-    </section>
+      </section>
 
-    <!-- Certifications -->
-    <section class="mb-12">
-      <h2 class="font-mono text-cyan-400 text-sm mb-4">// certifications</h2>
-      <div class="space-y-3">
-        {certs.map(cert => (
-          <div class="bg-slate-900 border border-slate-800 rounded-lg p-4 flex items-center justify-between">
-            <div>
-              <p class="text-slate-100 font-medium text-sm">{cert.name}</p>
-              <p class="text-slate-400 text-xs mt-0.5">{cert.issuer}</p>
-            </div>
-            <span class="font-mono text-xs text-cyan-400 bg-slate-800 px-2.5 py-1 rounded shrink-0 ml-4">
-              {cert.badge}
-            </span>
-          </div>
+      <section class="tile" aria-labelledby="projects-title">
+        <h2 class="tile-label" id="projects-title">Projects</h2>
+        {projects.map((project) => (
+          <article class="project">
+            <h3>
+              <a
+                class="project-name"
+                href={project.href}
+                target={project.external ? '_blank' : undefined}
+                rel={project.external ? 'noopener noreferrer' : undefined}
+              >{project.name}{project.external ? ' ↗' : ''}</a>
+            </h3>
+            <p>{project.summary}</p>
+            <ul class="chips">
+              {project.tech.map((tech) => <li>{tech}</li>)}
+            </ul>
+          </article>
         ))}
-      </div>
-    </section>
+      </section>
+    </div>
 
-    <!-- Experience -->
-    <section class="mb-12">
-      <h2 class="font-mono text-cyan-400 text-sm mb-4">// experience</h2>
-      <div class="space-y-6">
-
-        <div class="bg-slate-900 border border-slate-800 rounded-lg p-6">
-          <div class="flex items-start justify-between mb-4">
-            <div>
-              <h3 class="text-slate-100 font-semibold">IT Specialist</h3>
-              <p class="text-slate-400 text-sm mt-0.5">U.S. Small Business Administration · Washington, DC</p>
+    <aside class="resume-aside" aria-label="Certifications, education and skills">
+      <section class="tile" aria-labelledby="certifications-title">
+        <h2 class="tile-label" id="certifications-title">Certifications</h2>
+        <div class="cert-block">
+          {certifications.map((cert) => (
+            <div class="cert-item">
+              <strong>{cert.name}</strong>
+              <span>{cert.issuer} · {cert.code}</span>
             </div>
-            <span class="font-mono text-xs text-slate-500 bg-slate-800 px-2 py-1 rounded whitespace-nowrap ml-4">Nov 2024 – Present</span>
-          </div>
-          <ul class="space-y-2 text-slate-300 text-sm">
-            <li class="flex gap-2"><span class="text-cyan-400 shrink-0">▸</span> Spearhead IT support for federally declared disaster response operations, ensuring reliable technology services for field staff across multiple sites</li>
-            <li class="flex gap-2"><span class="text-cyan-400 shrink-0">▸</span> Provide Tier 2/3 technical support for Disaster Recovery Centers, managing IT readiness and resolving connectivity issues in challenging field environments</li>
-            <li class="flex gap-2"><span class="text-cyan-400 shrink-0">▸</span> Stabilize IT service delivery during rapid operational cycles, maintaining uptime for critical disaster relief systems</li>
-            <li class="flex gap-2"><span class="text-cyan-400 shrink-0">▸</span> Administer Identity and Access Management (IAM) protocols for user provisioning and access control across agency systems</li>
-            <li class="flex gap-2"><span class="text-cyan-400 shrink-0">▸</span> Develop and maintain system documentation, SOPs, and knowledge base articles for standardized incident response and configuration management</li>
-            <li class="flex gap-2"><span class="text-cyan-400 shrink-0">▸</span> Evaluate IT systems and services for effectiveness, recommending modern approaches aligned with industry best practices</li>
-          </ul>
-        </div>
-
-        <div class="bg-slate-900 border border-slate-800 rounded-lg p-6">
-          <div class="flex items-start justify-between mb-4">
-            <div>
-              <h3 class="text-slate-100 font-semibold">Service Desk Technician</h3>
-              <p class="text-slate-400 text-sm mt-0.5">Iron Bow Technologies · Remote</p>
-            </div>
-            <span class="font-mono text-xs text-slate-500 bg-slate-800 px-2 py-1 rounded whitespace-nowrap ml-4">Sep 2021 – Dec 2024</span>
-          </div>
-          <ul class="space-y-2 text-slate-300 text-sm">
-            <li class="flex gap-2"><span class="text-cyan-400 shrink-0">▸</span> Delivered Tier 1/2 support for Department of Veterans Affairs Telehealth users via phone, email, and ticketing systems</li>
-            <li class="flex gap-2"><span class="text-cyan-400 shrink-0">▸</span> Consistently exceeded SLAs with a ticket-to-call ratio surpassing 100%, closing an average of 20 tickets per day</li>
-            <li class="flex gap-2"><span class="text-cyan-400 shrink-0">▸</span> Maintained a 99%+ customer satisfaction rating across all support interactions</li>
-            <li class="flex gap-2"><span class="text-cyan-400 shrink-0">▸</span> Collaborated with cross-functional teams including network services, software engineering, and vendors to restore services, identify root causes, and implement solutions</li>
-            <li class="flex gap-2"><span class="text-cyan-400 shrink-0">▸</span> Managed mobile device fleet using AirWatch WorkspaceOne UEM, enforcing security policies and organizational compliance</li>
-            <li class="flex gap-2"><span class="text-cyan-400 shrink-0">▸</span> Administered IAM protocols, facilitating access to critical business services while ensuring data security and regulatory compliance</li>
-            <li class="flex gap-2"><span class="text-cyan-400 shrink-0">▸</span> Coordinated asset lifecycle management including receipt, distribution, shipment, and disposition tracking</li>
-          </ul>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- Projects -->
-    <section class="mb-12">
-      <h2 class="font-mono text-cyan-400 text-sm mb-4">// projects</h2>
-      <div class="bg-slate-900 border border-slate-800 rounded-lg p-6">
-        <div class="flex items-start justify-between mb-3">
-          <h3 class="text-slate-100 font-semibold">Personal Portfolio & Blog</h3>
-          <a href="https://github.com/JeromeAaron/cloud-portfolio" target="_blank" rel="noopener noreferrer" class="font-mono text-xs text-cyan-400 hover:underline ml-4 shrink-0">GitHub ↗</a>
-        </div>
-        <p class="text-slate-300 text-sm mb-4">Static site built with Astro, deployed on AWS using S3, CloudFront, Route 53, ACM, and WAF. Infrastructure managed with Terraform and automated via GitHub Actions CI/CD pipeline with accessibility, link, and type-checking tests.</p>
-        <div class="flex flex-wrap gap-2">
-          {['Astro', 'AWS S3', 'CloudFront', 'Route 53', 'IAM', 'WAF', 'ACM', 'Terraform', 'GitHub Actions'].map(tag => (
-            <span class="bg-slate-800 text-slate-300 text-xs px-2.5 py-1 rounded font-mono">{tag}</span>
           ))}
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- Education -->
-    <section class="mb-12">
-      <h2 class="font-mono text-cyan-400 text-sm mb-4">// education</h2>
-      <div class="bg-slate-900 border border-slate-800 rounded-lg p-6">
-        <div class="flex items-start justify-between">
-          <div>
-            <h3 class="text-slate-100 font-semibold">B.S. Cloud Computing</h3>
-            <p class="text-slate-400 text-sm mt-0.5">Western Governors University</p>
-          </div>
-          <span class="font-mono text-xs text-slate-500 bg-slate-800 px-2 py-1 rounded whitespace-nowrap ml-4">Expected Dec 2026</span>
+      <section class="tile" aria-labelledby="education-title">
+        <h2 class="tile-label" id="education-title">Education</h2>
+        <div class="cert-item">
+          <strong>{education.degree}</strong>
+          <span>{education.school} · {education.dates}</span>
         </div>
-      </div>
-    </section>
+      </section>
 
+      <section class="tile" aria-labelledby="skills-title">
+        <h2 class="tile-label" id="skills-title">Skills</h2>
+        <div class="aside-skills">
+          {skills.map((group) => (
+            <div>
+              <h3>{group.group}</h3>
+              <ul class="chips">
+                {group.items.map((item) => <li>{item}</li>)}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </section>
+    </aside>
   </div>
 </Layout>
+
+<script>
+  document.querySelector('[data-print]')?.addEventListener('click', () => window.print());
+</script>

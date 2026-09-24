@@ -1,46 +1,87 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { getCollection, render } from 'astro:content';
+import { render } from 'astro:content';
+import { getPosts, readingTime, formatDate } from '../../utils/posts';
 
 export async function getStaticPaths() {
-  const posts = await getCollection('blog');
-  return posts.map(post => ({
+  const posts = await getPosts();
+  return posts.map((post) => ({
     params: { slug: post.id.replace(/\.md$/, '') },
     props: { post },
   }));
 }
 
 const { post } = Astro.props;
-const { Content } = await render(post);
+const { Content, headings } = await render(post);
+// Long posts get a table of contents built from their H2 headings.
+const toc = headings.filter((h) => h.depth === 2);
+const showToc = toc.length >= 3;
 ---
 
-<Layout title={post.data.title} description={post.data.description}>
-  <article class="py-8">
+<Layout title={post.data.title} description={post.data.description} ogType="article">
+  <div class="post-layout">
+    <article>
+      <header class="post-header">
+        <a class="back-link" href="/blog">← All writing</a>
+        <p class="post-meta">{formatDate(post.data.date, 'long')} · {readingTime(post)}</p>
+        <h1>{post.data.title}</h1>
+        <p class="lede">{post.data.description}</p>
+        {post.data.tags && (
+          <ul class="tags" aria-label="Tags">
+            {post.data.tags.map((tag) => <li>{tag}</li>)}
+          </ul>
+        )}
+      </header>
 
-    <div class="mb-8">
-      <a href="/blog" class="font-mono text-sm text-slate-500 hover:text-cyan-400 transition-colors">
-        ← back to blog
-      </a>
-    </div>
-
-    <header class="mb-10">
-      <p class="font-mono text-cyan-400 text-xs mb-3">
-        {post.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
-      </p>
-      <h1 class="text-4xl font-bold text-slate-100 mb-3">{post.data.title}</h1>
-      <p class="text-slate-400 text-lg">{post.data.description}</p>
-      {post.data.tags && (
-        <div class="flex gap-2 mt-4 flex-wrap">
-          {post.data.tags.map((tag: string) => (
-            <span class="font-mono text-xs text-slate-500 bg-slate-800 px-2.5 py-1 rounded">{tag}</span>
-          ))}
-        </div>
+      {showToc && (
+        <details class="toc-mobile">
+          <summary>Contents</summary>
+          <nav class="toc" aria-label="Contents">
+            <ol>
+              {toc.map((h) => <li><a href={`#${h.slug}`}>{h.text}</a></li>)}
+            </ol>
+          </nav>
+        </details>
       )}
-    </header>
 
-    <div class="prose prose-invert prose-cyan max-w-none">
-      <Content />
-    </div>
+      <div class="prose">
+        <Content />
+      </div>
+    </article>
 
-  </article>
+    {showToc && (
+      <aside class="toc-desktop">
+        <nav class="toc" aria-label="On this page">
+          <p class="tile-label">On this page</p>
+          <ol>
+            {toc.map((h) => <li><a href={`#${h.slug}`}>{h.text}</a></li>)}
+          </ol>
+        </nav>
+      </aside>
+    )}
+  </div>
 </Layout>
+
+<script>
+  // Code blocks and tables that scroll sideways need to be reachable by keyboard.
+  document.querySelectorAll<HTMLElement>('.prose pre, .prose table').forEach((el) => {
+    if (el.scrollWidth > el.clientWidth) el.tabIndex = 0;
+  });
+
+  // Highlight the section you're reading in the desktop table of contents.
+  const links = Array.from(document.querySelectorAll<HTMLAnchorElement>('.toc-desktop .toc a'));
+  if (links.length && 'IntersectionObserver' in window) {
+    const byId = new Map(links.map((a) => [decodeURIComponent(a.hash.slice(1)), a]));
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          links.forEach((l) => l.classList.remove('active'));
+          byId.get(entry.target.id)?.classList.add('active');
+        }
+      },
+      { rootMargin: '-80px 0px -70% 0px' }
+    );
+    document.querySelectorAll<HTMLElement>('.prose h2[id]').forEach((h) => observer.observe(h));
+  }
+</script>

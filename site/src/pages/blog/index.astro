@@ -1,57 +1,39 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { getCollection } from 'astro:content';
+import { getPosts, postUrl, readingTime, formatDate } from '../../utils/posts';
 
-const posts = (await getCollection('blog')).sort(
-  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
-);
+const posts = await getPosts();
 ---
 
 <Layout
-  title="Blog"
-  description="Jerome Aaron's blog — notes on cloud engineering, AWS, Terraform, infrastructure as code, and transitioning from federal IT to cloud DevOps."
+  title="Writing"
+  description="Jerome Aaron's writing on cloud engineering, AWS, Terraform, homelabs, and moving from federal IT into cloud engineering."
 >
-  <div class="py-8">
-
-    <p class="font-mono text-cyan-400 text-sm mb-2">$ ls blog/</p>
-    <h1 class="text-4xl font-bold text-slate-100 mb-3">Blog</h1>
-    <p class="text-slate-400 mb-10">
-      Notes on cloud engineering, infrastructure, and the transition from IT to DevOps.
+  <section class="tile page-head" aria-labelledby="writing-title">
+    <p class="eyebrow">Writing</p>
+    <h1 id="writing-title">What I built, what broke, and what I learned</h1>
+    <p class="lede">
+      Write-ups on cloud infrastructure, my homelab, and the move from federal IT into cloud
+      engineering. Each post covers a real system I run, including the parts that went wrong.
     </p>
+  </section>
 
-    {posts.length === 0 ? (
-      <p class="text-slate-500 font-mono text-sm">// no posts yet — check back soon</p>
-    ) : (
-      <div class="space-y-4">
-        {posts.map(post => (
-          <a
-            href={`/blog/${post.id.replace(/\.md$/, '')}`}
-            class="block bg-slate-900 border border-slate-800 rounded-lg p-6 hover:border-slate-600 transition-colors group"
-          >
-            <div class="flex items-start justify-between gap-4">
-              <div>
-                <h2 class="text-slate-100 font-semibold group-hover:text-cyan-400 transition-colors mb-1">
-                  {post.data.title}
-                </h2>
-                <p class="text-slate-400 text-sm">{post.data.description}</p>
-                {post.data.tags && (
-                  <div class="flex gap-2 mt-3 flex-wrap">
-                    {post.data.tags.map((tag: string) => (
-                      <span class="font-mono text-xs text-slate-500 bg-slate-800 px-2 py-0.5 rounded">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                )}
-              </div>
-              <span class="font-mono text-xs text-slate-500 whitespace-nowrap">
-                {post.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
-              </span>
-            </div>
-          </a>
-        ))}
-      </div>
-    )}
-
-  </div>
+  {posts.length === 0 ? (
+    <p class="muted">No posts yet. Check back soon.</p>
+  ) : (
+    <div class="post-list">
+      {posts.map((post) => (
+        <a class="tile post-card" href={postUrl(post)}>
+          <p class="post-meta">{formatDate(post.data.date, 'long')} · {readingTime(post)}</p>
+          <h2>{post.data.title}</h2>
+          <p>{post.data.description}</p>
+          {post.data.tags && (
+            <ul class="tags" aria-label="Tags">
+              {post.data.tags.map((tag) => <li>{tag}</li>)}
+            </ul>
+          )}
+        </a>
+      ))}
+    </div>
+  )}
 </Layout>

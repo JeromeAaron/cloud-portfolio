@@ -2,11 +2,15 @@
 import Layout from '../layouts/Layout.astro';
 ---
 
-<Layout title="404 — Not Found">
-  <div class="py-20 text-center">
-    <p class="font-mono text-cyan-400 text-sm mb-4">$ cat error.log</p>
-    <h1 class="text-6xl font-bold text-slate-100 mb-4">404</h1>
-    <p class="text-slate-400 mb-8">This page doesn't exist. Maybe it was never deployed.</p>
-    <a href="/" class="font-mono text-sm text-cyan-400 hover:underline">← back to home</a>
-  </div>
+<Layout title="Page not found">
+  <section class="tile not-found" aria-labelledby="nf-title">
+    <p class="big-number mono">404</p>
+    <h1 id="nf-title">This page isn't here.</h1>
+    <p class="lede">It may have moved, or it was never deployed. One of these should get you back on track.</p>
+    <div class="actions">
+      <a class="btn btn-primary" href="/">Home</a>
+      <a class="btn" href="/resume">Resume</a>
+      <a class="btn" href="/blog">Writing</a>
+    </div>
+  </section>
 </Layout>

@@ -1,77 +1,195 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import {
+  profile, stats, systems, pipeline, safeguards,
+  certifications, experience, education, skills,
+} from '../data/profile';
+import { getPosts, postUrl, readingTime, formatDate } from '../utils/posts';
+
+const posts = (await getPosts()).slice(0, 3);
 ---
 
 <Layout
-  title="Jerome Aaron — Cloud Engineer & IT Specialist in Washington DC"
-  description="Jerome Aaron is an IT Specialist and Cloud Engineer in the Washington DC Metro area. AWS Certified Solutions Architect Associate. Building infrastructure with Terraform, AWS, and GitHub Actions CI/CD."
+  title="Cloud Engineer & Federal IT Specialist in Washington, DC"
+  description="Jerome Aaron is a federal IT specialist and AWS Certified Solutions Architect in the Washington, DC area. He builds cloud infrastructure as code with AWS, Terraform and GitHub Actions, and runs his own homelab and local AI lab."
 >
-  <div class="py-20">
+  <div class="bento">
 
-    <!-- Hero -->
-    <div class="mb-12">
-      <p class="font-mono text-cyan-400 text-sm mb-3">$ whoami</p>
-      <h1 class="text-5xl font-bold text-slate-100 mb-4">Jerome Aaron</h1>
-      <p class="text-xl text-slate-400 mb-6">
-        IT Specialist → Cloud Engineer · AWS · Terraform · CI/CD
+    <!-- Intro -->
+    <section class="tile hero span-2 rows-2" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow">IT Specialist · Cloud Engineer · {profile.location}</p>
+        <h1 id="hero-title">Federal IT specialist <span>building cloud infrastructure on AWS.</span></h1>
+        <p class="lede">
+          Five years supporting federal agencies, from VA Telehealth to disaster response at the
+          U.S. Small Business Administration. I'm an AWS Certified Solutions Architect who writes
+          infrastructure as code, automates deployments, and runs a working lab to learn what breaks.
+        </p>
+      </div>
+      <div class="actions">
+        <a class="btn btn-primary" href="/resume">View resume</a>
+        <a class="btn" href={profile.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
+        <a class="btn" href={profile.github} target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+      </div>
+    </section>
+
+    <!-- Systems -->
+    <section class="tile span-2 rows-2" aria-labelledby="systems-title">
+      <div class="tile-head">
+        <h2 class="tile-label" id="systems-title">Systems I built and run</h2>
+      </div>
+      <div class="systems">
+        {systems.map((system) => (
+          <a class="system" href={system.href}>
+            <span class={`dot ${system.status === 'planned' ? 'dot-planned' : 'dot-live'}`} aria-hidden="true"></span>
+            <span class="system-body">
+              <span class="system-name">{system.name}</span>
+              <span class="system-plain">{system.plain}</span>
+              <span class="system-tech">{system.tech.join(' · ')}</span>
+            </span>
+            <span class={`status ${system.status === 'planned' ? 'status-planned' : ''}`}>{system.status}</span>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <!-- At a glance -->
+    <section class="tile stats span-full" aria-label="At a glance">
+      {stats.map((stat) => (
+        <div class="stat">
+          <p class="stat-value">{stat.value}</p>
+          <p class="stat-label">{stat.label}</p>
+        </div>
+      ))}
+    </section>
+
+    <!-- Deploy pipeline -->
+    <section class="tile span-full" aria-labelledby="ship-title">
+      <div class="tile-head">
+        <h2 class="tile-label" id="ship-title">How this site ships</h2>
+        <a class="tile-link" href="/blog/building-cloud-portfolio">How I built it →</a>
+      </div>
+      <p class="tile-note">
+        Every change is tested automatically before it goes live. There are no servers to patch,
+        and nothing is clicked together by hand in the AWS console.
       </p>
-      <p class="text-slate-300 max-w-2xl leading-relaxed">
-        Federal IT professional transitioning to cloud engineering. I build infrastructure
-        as code, automate deployments, and architect scalable systems on AWS.
-        AWS Solutions Architect Associate certified.
-      </p>
-    </div>
+      <ol class="pipeline">
+        {pipeline.map((step, i) => (
+          <li class="step">
+            <span class="step-num">{String(i + 1).padStart(2, '0')}</span>
+            <span class="step-tool">{step.tool}</span>
+            <span class="step-plain">{step.plain}</span>
+          </li>
+        ))}
+      </ol>
+      <div class="ship-detail">
+        <div>
+          <pre class="term"><span class="prompt">$ terraform plan</span>
+<span class="ok">No changes.</span> Your infrastructure matches the configuration.</pre>
+          <p class="term-caption">The whole AWS setup lives in Terraform. "No changes" means what's running matches the code exactly.</p>
+        </div>
+        <ul class="checks">
+          {safeguards.map((item) => (
+            <li>
+              <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10.5l4 4 8-9"></path></svg>
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
 
-    <!-- CTA buttons -->
-    <div class="flex gap-4 flex-wrap mb-20">
-      <a
-        href="/resume"
-        class="px-5 py-2.5 bg-cyan-400 text-slate-950 font-semibold rounded hover:bg-cyan-300 transition-colors text-sm"
-      >
-        View Resume
-      </a>
-      <a
-        href="/blog"
-        class="px-5 py-2.5 border border-slate-700 text-slate-300 rounded hover:border-slate-500 hover:text-slate-100 transition-colors text-sm"
-      >
-        Read Blog
-      </a>
-      <a
-        href="https://github.com/JeromeAaron"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="px-5 py-2.5 border border-slate-700 text-slate-300 rounded hover:border-slate-500 hover:text-slate-100 transition-colors text-sm"
-      >
-        GitHub ↗
-      </a>
-      <a
-        href="https://www.linkedin.com/in/jerome-aaron/"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="px-5 py-2.5 border border-slate-700 text-slate-300 rounded hover:border-slate-500 hover:text-slate-100 transition-colors text-sm"
-      >
-        LinkedIn ↗
-      </a>
-    </div>
+    <!-- Certifications -->
+    <section class="tile" aria-labelledby="certs-title">
+      <h2 class="tile-label" id="certs-title">Certifications</h2>
+      <p class="big-number">{certifications.length}</p>
+      <ul class="cert-list">
+        {certifications.map((cert) => (
+          <li><span>{cert.short}</span><code>{cert.code}</code></li>
+        ))}
+      </ul>
+    </section>
 
-    <!-- Highlight cards -->
-    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
-      <div class="bg-slate-900 border border-slate-800 rounded-lg p-6">
-        <p class="font-mono text-cyan-400 text-xs mb-2">certifications</p>
-        <p class="text-2xl font-bold text-slate-100 mb-1">4</p>
-        <p class="text-slate-400 text-sm">A+, Security+, ITIL v4, AWS SAA</p>
+    <!-- Now -->
+    <section class="tile" aria-labelledby="now-title">
+      <h2 class="tile-label" id="now-title">Now</h2>
+      <ul class="now-list">
+        <li><span>Day job</span>IT Specialist, U.S. Small Business Administration</li>
+        <li><span>Studying</span>B.S. Cloud Computing, WGU, finishing Dec 2026</li>
+        <li><span>Building</span>Offsite backups for my homelab on AWS</li>
+        <li><span>Based</span>{profile.location}, traveling full-time for work</li>
+      </ul>
+    </section>
+
+    <!-- Writing -->
+    <section class="tile span-2" aria-labelledby="writing-title">
+      <div class="tile-head">
+        <h2 class="tile-label" id="writing-title">Latest writing</h2>
+        <a class="tile-link" href="/blog">All posts →</a>
       </div>
-      <div class="bg-slate-900 border border-slate-800 rounded-lg p-6">
-        <p class="font-mono text-cyan-400 text-xs mb-2">cloud provider</p>
-        <p class="text-2xl font-bold text-slate-100 mb-1">AWS</p>
-        <p class="text-slate-400 text-sm">S3, CloudFront, Route 53, IAM, WAF</p>
+      <div class="post-links">
+        {posts.map((post) => (
+          <a class="post-link" href={postUrl(post)}>
+            <span class="post-link-title">{post.data.title}</span>
+            <span class="post-link-desc">{post.data.description}</span>
+            <span class="post-meta">{formatDate(post.data.date)} · {readingTime(post)}</span>
+          </a>
+        ))}
       </div>
-      <div class="bg-slate-900 border border-slate-800 rounded-lg p-6">
-        <p class="font-mono text-cyan-400 text-xs mb-2">infrastructure</p>
-        <p class="text-2xl font-bold text-slate-100 mb-1">IaC</p>
-        <p class="text-slate-400 text-sm">Terraform · GitHub Actions</p>
+    </section>
+
+    <!-- Skills -->
+    <section class="tile span-full" aria-labelledby="skills-title">
+      <div class="tile-head">
+        <h2 class="tile-label" id="skills-title">Tools I work with</h2>
       </div>
-    </div>
+      <div class="skill-groups">
+        {skills.map((group) => (
+          <div class="skill-group">
+            <h3>{group.group}</h3>
+            <ul class="chips">
+              {group.items.map((item) => <li>{item}</li>)}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </section>
 
   </div>
+
+  <!-- Experience -->
+  <section class="section" aria-labelledby="exp-title">
+    <div class="section-head">
+      <h2 id="exp-title">Experience</h2>
+      <a class="tile-link" href="/resume">Full resume →</a>
+    </div>
+    <div class="exp-grid">
+      {experience.map((job) => (
+        <article class="tile">
+          <p class="exp-when">{job.dates}</p>
+          <h3 class="exp-role">{job.role}</h3>
+          <p class="exp-org">{job.org}</p>
+          <p class="exp-summary">{job.summary}</p>
+        </article>
+      ))}
+      <article class="tile">
+        <p class="exp-when">{education.dates}</p>
+        <h3 class="exp-role">{education.degree}</h3>
+        <p class="exp-org">{education.school}</p>
+        <p class="exp-summary">Coursework that runs alongside the hands-on projects on this site.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="tile cta section" aria-labelledby="cta-title">
+    <div>
+      <h2 id="cta-title">Get in touch</h2>
+      <p>The quickest way to reach me is a message on LinkedIn.</p>
+    </div>
+    <div class="actions">
+      <a class="btn btn-primary" href={profile.linkedin} target="_blank" rel="noopener noreferrer">Message me on LinkedIn ↗</a>
+      <a class="btn" href="/resume">View resume</a>
+    </div>
+  </section>
 </Layout>
