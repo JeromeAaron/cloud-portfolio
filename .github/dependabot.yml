@@ -1,0 +1,32 @@
+# Dependabot keeps dependencies current.
+# Security fixes open as soon as a vulnerability is published (enabled in the
+# repo settings); the schedule below also proposes routine updates once a week.
+# Every PR runs the full CI pipeline before anything can be merged and deployed.
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /site
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 5
+    groups:
+      # One PR for all minor and patch bumps instead of one per package.
+      # Major versions still get their own PR, since they can break things.
+      npm-minor-and-patch:
+        update-types: [minor, patch]
+    commit-message:
+      prefix: "chore(deps)"
+
+  # Actions are pinned to commit SHAs; Dependabot updates the SHA and the
+  # version comment together.
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    groups:
+      github-actions:
+        patterns: ["*"]
+    commit-message:
+      prefix: "chore(ci)"
