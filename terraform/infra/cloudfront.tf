@@ -90,7 +90,7 @@ resource "aws_cloudfront_response_headers_policy" "security" {
     # fonts.gstatic.com         = Google Fonts files
     # frame-ancestors 'none'    = no iframing (stricter than X-Frame-Options)
     content_security_policy {
-      content_security_policy = "default-src 'self'; script-src 'self'; style-src 'self' fonts.googleapis.com; font-src fonts.gstatic.com; img-src 'self' data:; frame-ancestors 'none';"
+      content_security_policy = "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; style-src 'self' fonts.googleapis.com; font-src fonts.gstatic.com; img-src 'self' data: https://www.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://www.googletagmanager.com; frame-ancestors 'none';"
       override                = true
     }
   }
