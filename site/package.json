@@ -14,14 +14,14 @@
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",
     "@resvg/resvg-js": "^2.6.2",
-    "@tailwindcss/vite": "^4.2.1",
-    "astro": "^7.3.5",
-    "satori": "^0.25.0",
+    "@tailwindcss/vite": "^4.3.3",
+    "astro": "^7.4.2",
+    "satori": "^0.63.2",
     "tailwindcss": "^4.2.1"
   },
   "devDependencies": {
-    "@astrojs/check": "^0.9.10",
-    "@tailwindcss/typography": "^0.5.19",
+    "@astrojs/check": "^0.9.12",
+    "@tailwindcss/typography": "^0.5.20",
     "typescript": "^5.9.3"
   }
 }
